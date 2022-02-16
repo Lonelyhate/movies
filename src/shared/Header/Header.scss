@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.header{
+    background-color: $color-header;
+    border-bottom: 1px solid rgb(47, 47, 47);
+    &__content{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__left{
+        display: flex;
+        align-items: center;
+    }
+    &__right{
+        display: flex;
+        align-items: center;
+    }
+    &__logo{
+        padding: 5px 0;
+    }
+    &__banner{
+        font-size: 19.2px;
+        margin-left: 20px;
+        color: $color-gray;
+    }
+}
