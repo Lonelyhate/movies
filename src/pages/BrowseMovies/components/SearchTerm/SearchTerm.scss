@@ -1,0 +1,46 @@
+@import '../../../../styles/variables.scss';
+
+.search-term{
+    background-color: $color-background-dark;
+    padding: 50px 0;
+    &__title{
+        font-weight: 700;
+        color: #5a5a5a;
+        margin-bottom: 10px;
+        font-size: 21px;
+    }
+    &__input{
+        display: flex;
+        input{
+            height: 40px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 4px;
+            background-color: #282828;
+            border: none;
+            outline: none;
+            padding: 10px;
+            color: #a2a2a2;
+            font-size: 16px;
+        }
+    }
+    &__btn{
+        background-color: $colorg-reen;
+        border: none;
+        border-radius: 3px;
+        font-weight: 700;
+        color: $color-white;
+        font-size: 16px;
+        height: 40px;
+        padding: 0 23px;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+        &:hover{
+            background-color: #55a035;
+        }
+    }
+    &__selects{
+        margin-top: 20px;
+        display: flex;
+    }
+}
