@@ -1,9 +1,11 @@
+import { IMovie } from "../../types/types";
 
 export interface SearchState {
-    items: any[];
+    items: IMovie[];
     loading: boolean;
     error: null | string;
-    totalItems: number;
+    totalItems: string;
+    pages: number
 }
 
 export enum MoviesActionTypes {
@@ -19,7 +21,7 @@ interface FetchMoviesAction {
 interface FetchMoviesSuccessAction {
     type: MoviesActionTypes.FETCH_MOVIES_SUCCES;
     payload: {
-        items: any[];
+        items: IMovie[];
         totalItems: number;
     };
 }

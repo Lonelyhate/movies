@@ -370,3 +370,14 @@ export type TypeOrderBy = {
         | OrderByName.ALPHABETICAL
         | OrderByName.DOWNLOADS;
 };
+
+export interface IMovie {
+    id: number;
+    large_cover_image: string;
+    medium_cover_image: string;
+    rating: number;
+    small_cover_image: string;
+    title: string;
+    year: string;
+    genres: TypeGenre[]
+}

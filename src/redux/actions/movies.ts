@@ -23,7 +23,7 @@ export const fetchMovies = (
                 type: MoviesActionTypes.FETCH_MOVIES_SUCCES,
                 payload: {
                     items: response.data.data.movies,
-                    totalItems: response.data.movie_count,
+                    totalItems: response.data.data.movie_count,
                 },
             });
         } catch (e) {

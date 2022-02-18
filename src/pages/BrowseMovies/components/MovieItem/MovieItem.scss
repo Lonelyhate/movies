@@ -1,0 +1,98 @@
+@import '../../../../styles/variables.scss';
+
+.movie-item{
+    position: relative;
+    width: 180px;
+    & > a{
+        display: block;
+        color: $color-white;
+        font-size: 15px;
+        text-decoration: none;
+        margin: 5px 0 0 5px;
+        transition: color 0.3s ease;
+        &:hover{
+            color: $color-gray;
+        }
+    }
+    &__img{
+        position: relative;
+        width: 180px;
+        height: 265px;
+        border: 5px solid #fff;
+        transition: border-color 0.3s ease;
+        color: $color-white;
+        img{
+            display: block;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        &:hover{
+            border-color: $colorg-reen;
+            & img{
+                opacity: 0.2;
+            }
+            & .movie-item__content{
+                opacity: 1;
+                visibility: visible;
+                pointer-events: all;
+                & > a {
+                    transform: translateY(0);
+                }
+            }
+
+        }
+    }
+    &__content{
+        position: absolute;
+        top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        > a {
+            margin-top: 20px;
+            padding: 10px 0;
+            width: 130px;
+            background-color: $colorg-reen;
+            text-decoration: none;
+            color: $color-white;
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 3px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            transform: translateY(20px);
+            &:hover{
+                background-color: #4f9b2e;
+            }
+        }
+        svg{
+            width: 24px;
+            height: 24px;
+            fill: $colorg-reen;
+            margin-bottom: 10px;
+        }
+        h4{
+            font-size: 25px;
+            font-weight: 700;
+        }
+    }
+    &__rating{
+        margin-bottom: 20px;
+    }
+    &__genre{
+        margin-bottom: 10px;
+    }
+    &__year{
+        margin: 5px 0 0 5px;
+        color: $color-gray;
+        font-size: 13.6px;
+    }
+}

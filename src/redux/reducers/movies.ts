@@ -1,11 +1,17 @@
-import { MoviesAction, MoviesActionTypes, SearchState } from "../types/movies";
+import { MoviesAction, MoviesActionTypes, SearchState } from '../types/movies';
 
 const initalState: SearchState = {
     items: [],
     loading: false,
     error: null,
-    totalItems: 0
-}
+    totalItems: '0',
+    pages: 0
+};
+
+const numberParse = (num: number) => {
+    let result = String(num).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1,');
+    return result;
+};
 
 export const moviesReducer = (state = initalState, action: MoviesAction): SearchState => {
     switch (action.type) {
@@ -13,21 +19,22 @@ export const moviesReducer = (state = initalState, action: MoviesAction): Search
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
         case MoviesActionTypes.FETCH_MOVIES_SUCCES:
             return {
                 ...state,
                 loading: false,
                 items: action.payload.items,
-                totalItems: action.payload.totalItems
-            }
+                totalItems: numberParse(action.payload.totalItems),
+                pages: Math.round(+action.payload.totalItems / 20),
+            };
         case MoviesActionTypes.FETCH_MOVIES_ERROR:
             return {
                 ...state,
-                error: action.payload
-            }
+                error: action.payload,
+            };
         default:
-            return state
+            return state;
     }
-}
+};
