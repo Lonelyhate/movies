@@ -1,0 +1,38 @@
+@import '../../../../styles/variables.scss';
+
+.pagination{
+    display: flex;
+    margin-bottom: 50px;
+    justify-content: center;
+    &__item{
+        &:not(:last-child) {
+            margin-right: 5px;
+        }
+    }
+    &__btn{
+        font-size: 14px;
+        font-weight: 700;
+        color: $color-white;
+        border: 1px solid #333;
+        padding: 10px 13px;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+        &:hover{
+            border-color: $colorg-reen;
+            background-color: $colorg-reen;
+        }
+        &.active{
+            border-color: $colorg-reen;
+            background-color: $colorg-reen;
+        }
+        &.disabled{
+            cursor: default;
+            &:hover{
+                background-color: transparent;
+                border: 1px solid #333;
+            }
+        }
+    }
+}

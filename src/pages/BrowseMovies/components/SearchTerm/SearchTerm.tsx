@@ -1,4 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
+import { activePage, fetchMovies } from '../../../../redux/actions/movies';
+import {
+    setGenre,
+    setLanguage,
+    setOrderBy,
+    setQuality,
+    setRating,
+    setValue,
+    setYear,
+} from '../../../../redux/actions/search';
 import {
     GenreChangeName,
     GenreChangeValue,
@@ -285,61 +297,154 @@ const SearchTerm: FC = () => {
     const ordersBy: TypeOrderBy[] = [
         {
             value: OrderByValue.LATEST,
-            name: OrderByName.LATEST
+            name: OrderByName.LATEST,
         },
         {
             value: OrderByValue.OLDEST,
-            name: OrderByName.OLDEST
+            name: OrderByName.OLDEST,
         },
         {
             value: OrderByValue.FEATURED,
-            name: OrderByName.FEATURED
+            name: OrderByName.FEATURED,
         },
         {
             value: OrderByValue.SEEDS,
-            name: OrderByName.SEEDS
+            name: OrderByName.SEEDS,
         },
         {
             value: OrderByValue.PEERS,
-            name: OrderByName.PEERS
+            name: OrderByName.PEERS,
         },
         {
             value: OrderByValue.YEAR,
-            name: OrderByName.YEAR
+            name: OrderByName.YEAR,
         },
         {
             value: OrderByValue.RATING,
-            name: OrderByName.RATING
+            name: OrderByName.RATING,
         },
         {
             value: OrderByValue.LIKES,
-            name: OrderByName.LIKES
+            name: OrderByName.LIKES,
         },
         {
             value: OrderByValue.ALPHABETICAL,
-            name: OrderByName.ALPHABETICAL
+            name: OrderByName.ALPHABETICAL,
         },
         {
             value: OrderByValue.DOWNLOADS,
-            name: OrderByName.DOWNLOADS
+            name: OrderByName.DOWNLOADS,
         },
-    ]
+    ];
+
+    const dispatch = useDispatch();
+    const { quality, genre, rating, year, language, orderBy, value } = useTypedSelector(
+        (state) => state.search,
+    );
+    const { page } = useTypedSelector((state) => state.movies);
+    const [isValue, setIsValue] = useState<string>('');
+
+    const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsValue(e.target.value.split(' ').join('+'));
+    };
+
+    const getMovies = (
+        value: string,
+        quality: string,
+        genre: string,
+        rating: string | number,
+        year: string,
+        language: string,
+        order_by: string,
+        page: number
+    ) => {
+        dispatch(setValue(isValue))
+        dispatch(fetchMovies(page, value, quality, genre, rating, year, language, orderBy));
+        dispatch(activePage(1));
+    };
+
+    const onChangeValueQuality = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setQuality(e.target.value));
+    };
+
+    const onChangeValueGenre = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setGenre(e.target.value));
+    };
+
+    const onChangeValueRating = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setRating(e.target.value));
+    };
+
+    const onChangeValueYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setYear(e.target.value));
+    };
+
+    const onChangeValueLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setLanguage(e.target.value));
+    };
+
+    const onChangeValueSortBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setOrderBy(e.target.value));
+    };
 
     return (
         <div className="search-term">
             <div className="container-page">
                 <p className="search-term__title">Search Term:</p>
                 <div className="search-term__input">
-                    <input type="text" />
-                    <button className="search-term__btn">Search</button>
+                    <input
+                        onChange={onChangeValue}
+                        onKeyPress={(e) =>
+                            e.key === 'Enter' &&
+                            getMovies(isValue, quality, genre, rating, year, language, orderBy, page)
+                        }
+                        type="text"
+                    />
+                    <button
+                        onClick={() => {
+                            getMovies(isValue, quality, genre, rating, year, language, orderBy, page);
+                        }}
+                        className="search-term__btn">
+                        Search
+                    </button>
                 </div>
                 <div className="search-term__selects">
-                    <SelectTerm items={qualities} name="quality" title="Quality:" />
-                    <SelectTerm items={genres} name="genre" title="Genre:" />
-                    <SelectTerm items={ratings} name="rating" title="Rating:" />
-                    <SelectTerm items={years} name="year" title="Year:" />
-                    <SelectTerm items={languages} name='language' title='Language:'/>
-                    <SelectTerm items={ordersBy} name='order_by' title='Order By:'/>
+                    <SelectTerm
+                        items={qualities}
+                        onChangeValue={onChangeValueQuality}
+                        name="quality"
+                        title="Quality:"
+                    />
+                    <SelectTerm
+                        items={genres}
+                        onChangeValue={onChangeValueGenre}
+                        name="genre"
+                        title="Genre:"
+                    />
+                    <SelectTerm
+                        items={ratings}
+                        onChangeValue={onChangeValueRating}
+                        name="rating"
+                        title="Rating:"
+                    />
+                    <SelectTerm
+                        items={years}
+                        onChangeValue={onChangeValueYear}
+                        name="year"
+                        title="Year:"
+                    />
+                    <SelectTerm
+                        items={languages}
+                        onChangeValue={onChangeValueLanguage}
+                        name="language"
+                        title="Language:"
+                    />
+                    <SelectTerm
+                        items={ordersBy}
+                        onChangeValue={onChangeValueSortBy}
+                        name="order_by"
+                        title="Order By:"
+                    />
                 </div>
             </div>
         </div>

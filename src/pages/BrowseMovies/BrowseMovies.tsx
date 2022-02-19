@@ -9,19 +9,18 @@ import MoviesList from './components/MoviesList/MoviesList';
 const BrowseMovies: FC = () => {
 
     const dispatch = useDispatch()
-    const { items, totalItems, pages } = useTypedSelector(state => state.movies)
+    const { items, totalItems, pages, page} = useTypedSelector(state => state.movies)
+    const { quality, genre, rating, year, language, orderBy, value } = useTypedSelector(
+        (state) => state.search,
+    );
     useEffect(() => {
-        dispatch(fetchMovies())
-    }, [])
-
-    const pagesNumber = []
-
-    console.log(pages)
+        dispatch(fetchMovies(page, value, quality, genre, rating, year, language, orderBy))
+    }, [page])
 
     return (
         <div className="browse-movies">
                 <SearchTerm />
-                <MoviesList totalItems={totalItems} movies={items} />
+                <MoviesList pages={pages} totalItems={totalItems} movies={items} />
         </div>
     );
 };

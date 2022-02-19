@@ -1,17 +1,19 @@
-import { IMovie } from "../../types/types";
+import { IMovie } from '../../types/types';
 
-export interface SearchState {
+export interface MoviesState {
     items: IMovie[];
     loading: boolean;
     error: null | string;
     totalItems: string;
-    pages: number
+    pages: number;
+    page: number;
 }
 
 export enum MoviesActionTypes {
     FETCH_MOVIES = 'FETCH_MOVIES',
     FETCH_MOVIES_SUCCES = 'FETCH_SUCCESS',
     FETCH_MOVIES_ERROR = 'FETCH_MOVIES_ERROR',
+    FETCH_PAGE = 'FETCH_PAGE',
 }
 
 interface FetchMoviesAction {
@@ -31,4 +33,13 @@ interface FetchMoviesErrorAction {
     payload: string;
 }
 
-export type MoviesAction = FetchMoviesAction | FetchMoviesSuccessAction | FetchMoviesErrorAction;
+interface FetchPageAction {
+    type: MoviesActionTypes.FETCH_PAGE;
+    payload: number | string;
+}
+
+export type MoviesAction =
+    | FetchMoviesAction
+    | FetchMoviesSuccessAction
+    | FetchMoviesErrorAction
+    | FetchPageAction;
