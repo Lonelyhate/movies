@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { activePage, fetchMovies } from '../../../../redux/actions/movies';
@@ -344,10 +344,6 @@ const SearchTerm: FC = () => {
     const { page } = useTypedSelector((state) => state.movies);
     const [isValue, setIsValue] = useState<string>('');
 
-    const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsValue(e.target.value.split(' ').join('+'));
-    };
-
     const getMovies = (
         value: string,
         quality: string,
@@ -362,6 +358,18 @@ const SearchTerm: FC = () => {
         dispatch(fetchMovies(page, value, quality, genre, rating, year, language, orderBy));
         dispatch(activePage(1));
     };
+
+    useEffect(() => {
+
+    }, [genre])
+
+    const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsValue(e.target.value.split(' ').join('+'));
+    };
+
+    const m = React.useMemo(() => {
+        console.log(1)
+    }, [genre])
 
     const onChangeValueQuality = (e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setQuality(e.target.value));
@@ -451,4 +459,4 @@ const SearchTerm: FC = () => {
     );
 };
 
-export default SearchTerm;
+export default React.memo(SearchTerm);

@@ -371,6 +371,16 @@ export type TypeOrderBy = {
         | OrderByName.DOWNLOADS;
 };
 
+export type torrents = {
+    url: string;
+    hash: string;
+    quality: string;
+    seeds: number;
+    size: string;
+    type: string;
+    peers: string
+};
+
 export interface IMovie {
     id: number;
     large_cover_image: string;
@@ -379,5 +389,7 @@ export interface IMovie {
     small_cover_image: string;
     title: string;
     year: string;
-    genres: TypeGenre[]
+    genres: TypeGenre[];
+    torrents: torrents[];
+    like_count: number;
 }

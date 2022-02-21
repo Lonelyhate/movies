@@ -1,14 +1,25 @@
 import React, { FC } from 'react';
 import { IMovie } from '../../../../types/types';
 import { AiFillStar } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './MovieItem.scss';
+import { useDispatch } from 'react-redux';
+import { fetchCurrentMovie } from '../../../../redux/actions/currentMovie';
 
 interface MovieItemProps {
     movie: IMovie;
 }
 
 const MovieItem: FC<MovieItemProps> = ({ movie }) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const onClickMovie = (id: number) => {
+        navigate(`/${movie.title}`);
+        dispatch(fetchCurrentMovie(id));
+        localStorage.setItem('currentMovie', id + '');
+    };
+
     return (
         <article className="movie-item">
             <div className="movie-item__img">
@@ -27,13 +38,23 @@ const MovieItem: FC<MovieItemProps> = ({ movie }) => {
                                     </h4>
                                 ),
                         )}
-                    <Link to="/">View Details</Link>
+                    <button
+                        onClick={() => {
+                            onClickMovie(movie.id);
+                        }}>
+                        View Details
+                    </button>
                 </div>
             </div>
-            <Link to="/">{movie.title}</Link>
+            <button
+                onClick={() => {
+                    onClickMovie(movie.id);
+                }}>
+                {movie.title}
+            </button>
             <span className="movie-item__year">{movie.year}</span>
         </article>
     );
 };
 
-export default MovieItem;
+export default React.memo(MovieItem);

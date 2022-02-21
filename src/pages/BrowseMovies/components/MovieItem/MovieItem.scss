@@ -3,13 +3,17 @@
 .movie-item{
     position: relative;
     width: 180px;
-    & > a{
+    & > button{
         display: block;
         color: $color-white;
         font-size: 15px;
         text-decoration: none;
         margin: 5px 0 0 5px;
+        padding: 0;
+        border: none;
+        background: none;
         transition: color 0.3s ease;
+        cursor: pointer;
         &:hover{
             color: $color-gray;
         }
@@ -36,7 +40,7 @@
                 opacity: 1;
                 visibility: visible;
                 pointer-events: all;
-                & > a {
+                & > button {
                     transform: translateY(0);
                 }
             }
@@ -54,7 +58,7 @@
         opacity: 0;
         pointer-events: none;
         visibility: hidden;
-        > a {
+        > button {
             margin-top: 20px;
             padding: 10px 0;
             width: 130px;
@@ -69,6 +73,8 @@
             border-radius: 3px;
             transition: transform 0.3s ease, background-color 0.3s ease;
             transform: translateY(20px);
+            border: none;
+            cursor: pointer;
             &:hover{
                 background-color: #4f9b2e;
             }

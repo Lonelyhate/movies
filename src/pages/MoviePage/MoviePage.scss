@@ -1,0 +1,124 @@
+@import '../../styles/variables.scss';
+
+.movie-page{
+    background-color: #1d1d1d;
+    padding-top: 50px;
+    &__content{
+        display: flex;
+    }
+    &__left{
+        margin-right: 70px;
+    }
+    &__right{
+        max-width: 438px;
+    }
+    &__img{
+        position: relative;
+        width: 262.5px;
+        height: 380px;
+        border: 5px solid #fff;
+        margin-bottom: 10px;
+        img{
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        svg{
+            position: absolute;
+            top: 0;
+            left: 3px;
+            width: 35px;
+            height: 35px;
+            stroke: $colorg-reen;
+            cursor: pointer;
+        }
+    }
+    &__download{
+        display: block;
+        width: 100%;
+        background-color: $colorg-reen;
+        border-radius: 3px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 0;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 17.6px;
+    }
+    &__title{
+        font-size: 40px;
+        color: $color-white;
+        margin-bottom: 24px;
+    }
+    &__year{
+        font-size: 20px;
+        color: $color-white;
+        font-weight: 700;
+    }
+    &__genres{
+        margin: 5px 0 30px;
+        display: flex;
+    }
+    &__genre{
+        font-size: 20px;
+        color: $color-white;
+        font-weight: 700;
+    }
+    &__availables{
+        margin-bottom: 30px;
+    }
+    &__av-in{
+        font-size: 17.6px;
+        color: $color-white;
+        margin-right: 7px;
+        margin-top: 5px;
+    }
+    &__availables-list{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &__available{
+        border: 1px solid rgba(255,255,255,.16);
+        border-radius: 4px;
+        height: 30px;
+        &:not(:last-child) {
+            margin-right: 7px;
+            margin-bottom: 7px;
+        }
+        a{
+            text-decoration: none;
+            font-size: 14px;
+            color: $color-white;
+            transition: color 0.3s ease;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        &:hover a{
+            color: rgb(202, 201, 201);
+        }
+    }
+    &__about{
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        svg{
+            width: 25px;
+            height: 25px;
+            fill: $colorg-reen;
+            margin-right: 45px;
+        }
+        span{
+            font-size: 18.4px;
+            color: #fff;
+            font-weight: 700;
+        }
+        img{
+            margin-right: 30px;
+        }
+    }
+}

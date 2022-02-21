@@ -4,6 +4,7 @@
     display: flex;
     margin-bottom: 50px;
     justify-content: center;
+    margin: 30px;
     &__item{
         &:not(:last-child) {
             margin-right: 5px;

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { activePage, fetchMovies } from '../../../../redux/actions/movies';
+import Loader from '../../../../shared/Loader/Loader';
 import { IMovie } from '../../../../types/types';
 import MovieItem from '../MovieItem/MovieItem';
 import Pagination from '../Pagination/Pagination';
@@ -15,7 +16,7 @@ interface MoviesListProps {
 
 const MoviesList: FC<MoviesListProps> = ({ movies, totalItems, pages }) => {
     const dispatch = useDispatch();
-    const { page } = useTypedSelector((state) => state.movies);
+    const { page, loading } = useTypedSelector((state) => state.movies);
     const { value, quality, genre, rating, year, language, orderBy } = useTypedSelector(
         (state) => state.search,
     );
@@ -54,20 +55,26 @@ const MoviesList: FC<MoviesListProps> = ({ movies, totalItems, pages }) => {
                     onClick={onClickPage}
                     buttons={pagination}
                 />
-                <ul className="movies-list">
-                    {movies &&
-                        movies.map((movie) => (
-                            <li key={movie.id} className="movies-list__item">
-                                <MovieItem movie={movie} />
-                            </li>
-                        ))}
-                </ul>
-                <Pagination
-                    totalPages={pages}
-                    activePage={page}
-                    onClick={onClickPage}
-                    buttons={pagination}
-                />
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        <ul className="movies-list">
+                            {movies &&
+                                movies.map((movie) => (
+                                    <li key={movie.id} className="movies-list__item">
+                                        <MovieItem movie={movie} />
+                                    </li>
+                                ))}
+                        </ul>
+                        <Pagination
+                            totalPages={pages}
+                            activePage={page}
+                            onClick={onClickPage}
+                            buttons={pagination}
+                        />
+                    </>
+                )}
             </div>
         </section>
     );
