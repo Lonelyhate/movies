@@ -28,7 +28,7 @@ export const fetchMovies = (
                       }&page=${page}`,
                   ))
                 : (response = await axios.get(
-                      `https://yts.mx/api/v2/list_movies.json?page=${page}`,
+                      `https://yts.mx/api/v2/list_movies.json?page=${page}&quality=${quality}`,
                   ));
             dispatch({
                 type: MoviesActionTypes.FETCH_MOVIES_SUCCES,
@@ -52,5 +52,45 @@ export const activePage = (page: string | number) => {
             type: MoviesActionTypes.FETCH_PAGE,
             payload: page,
         });
+    };
+};
+
+export const fetchPopularMovies = () => {
+    return async (dispatch: Dispatch<MoviesAction>) => {
+        try {
+            dispatch({ type: MoviesActionTypes.FETCH_MOVIES });
+            const response = await axios.get(
+                'https://yts.mx/api/v2/list_movies.json?sort_by=download_count',
+            );
+            dispatch({
+                type: MoviesActionTypes.FETCH_POPULAR_MOVIES,
+                payload: response.data.data.movies,
+            });
+        } catch (e) {
+            dispatch({
+                type: MoviesActionTypes.FETCH_MOVIES_ERROR,
+                payload: 'Ошибка получения запроса',
+            });
+        }
+    };
+};
+
+export const fetchLastMovies = () => {
+    return async (dispatch: Dispatch<MoviesAction>) => {
+        try {
+            dispatch({ type: MoviesActionTypes.FETCH_MOVIES });
+            const response = await axios.get(
+                'https://yts.mx/api/v2/list_movies.json?order_by=desc',
+            );
+            dispatch({
+                type: MoviesActionTypes.FETCH_LAST_MOVIES,
+                payload: response.data.data.movies,
+            });
+        } catch (e) {
+            dispatch({
+                type: MoviesActionTypes.FETCH_MOVIES_ERROR,
+                payload: 'Ошибка получения запроса',
+            });
+        }
     };
 };

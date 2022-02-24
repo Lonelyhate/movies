@@ -2,6 +2,8 @@ import { MoviesAction, MoviesActionTypes, MoviesState } from '../types/movies';
 
 const initalState: MoviesState = {
     items: [],
+    popularMovies: [],
+    lastMovies: [],
     loading: false,
     error: null,
     totalItems: '0',
@@ -30,6 +32,18 @@ export const moviesReducer = (state = initalState, action: MoviesAction): Movies
                 totalItems: numberParse(action.payload.totalItems),
                 pages: Math.ceil(+action.payload.totalItems / 20),
             };
+        case MoviesActionTypes.FETCH_POPULAR_MOVIES:
+            return {
+                ...state,
+                loading: false,
+                popularMovies: action.payload.splice(0, 5)
+            };
+        case MoviesActionTypes.FETCH_LAST_MOVIES: 
+        return {
+            ...state,
+            loading: false,
+            lastMovies: action.payload.splice(0, 10)
+        }
         case MoviesActionTypes.FETCH_MOVIES_ERROR:
             return {
                 ...state,

@@ -1,4 +1,4 @@
-@import '../../../../styles/variables.scss';
+@import '../../../styles/variables.scss';
 
 .movie-item{
     position: relative;
@@ -79,7 +79,7 @@
                 background-color: #4f9b2e;
             }
         }
-        svg{
+        > svg{
             width: 24px;
             height: 24px;
             fill: $colorg-reen;
@@ -88,6 +88,22 @@
         h4{
             font-size: 25px;
             font-weight: 700;
+        }
+    }
+    &__bookmark{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: -22px;
+        left: -23px;
+        cursor: pointer;
+        svg{
+            width: 100%;
+            height: 100%;
+            stroke: $colorg-reen;
+        }
+        &.active svg {
+            fill: $colorg-reen
         }
     }
     &__rating{

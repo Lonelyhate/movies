@@ -1,14 +1,6 @@
 @import '../../../../styles/variables.scss';
 
-.movies-list{
-    display: flex;
-    flex-wrap: wrap;
-    &__item{
-        &:not(:nth-child(5n)) {
-            margin-right: 59px;
-        }
-        margin-bottom: 20px;
-    }
+.browse-movies-list{
     &__content{
         background-color: #1d1d1d;
         padding: 20px 0;
@@ -17,6 +9,7 @@
         text-align: center;
         color: $colorg-reen;
         font-size: 22px;
+        margin-bottom: 20px;
         span{
             font-weight: 400;
         }

@@ -1,0 +1,41 @@
+@import '../../styles/variables.scss';
+
+.home-page{
+    background-color: #171717;
+    padding: 40px 0;
+    &__title{
+        margin-bottom: 25px;
+        font-size: 44px;
+        text-shadow: 0 2px 2px rgba(0, 0, 0, 40%);
+        color: $color-white;
+        text-align: center;
+    }
+    &__text{
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 30px;
+        color: #ccc;
+    }
+    &__subtitle{
+        text-align: center;
+        color: $color-white;
+        font-size: 18.4px;
+        padding-bottom: 20px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        svg{
+            margin-right: 5px;
+            fill: $colorg-reen;
+            transform: translateY(2px);
+        }
+    }
+    &__subtitle-low{
+        color: $color-white;
+        font-size: 18.4px;
+        margin-bottom: 25px;
+    }
+    &__latest{
+        padding-top: 40px;
+        background-color: $color-header; 
+    }
+}

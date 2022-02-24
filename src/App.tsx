@@ -6,6 +6,7 @@ import MoviePage from './pages/MoviePage/MoviePage';
 import Header from './shared/Header/Header';
 
 function App() {
+    
     return (
         <div className="App">
             <Header />

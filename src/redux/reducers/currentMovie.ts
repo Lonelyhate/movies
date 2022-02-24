@@ -2,6 +2,7 @@ import { CurrentMovieAction, CurrentMovieActionTypes, CurrentMovieState } from "
 
 const initialState: CurrentMovieState = {
     movie: null,
+    similarMovies: [],
     loading: false,
     error: null
 }
@@ -18,6 +19,12 @@ export const currentMovieReducer = (state = initialState, action: CurrentMovieAc
                 ...state,
                 loading: false,
                 movie: action.payload
+            }
+        case CurrentMovieActionTypes.FETCH_MOVIE_SIMILAR:
+            return {
+                ...state,
+                loading: false,
+                similarMovies: action.payload
             }
         case CurrentMovieActionTypes.FETCH_MOVIE_ERROR:
             return {

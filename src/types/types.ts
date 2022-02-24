@@ -1,13 +1,11 @@
 export enum MenuItem {
     HOME = 'Home',
-    TRENDING = 'Trending',
     BROWSE_MOVIES = 'Browse Movies',
     FAVORITES = 'Favorites',
 }
 
 export enum MenuLink {
-    HOME_LINK = 'home',
-    TRENDING_LINK = 'trending',
+    HOME_LINK = '/',
     BROWSE_MOVIES = 'browse-movies',
     FAVORITES_LINK = 'favorites',
 }
@@ -191,12 +189,8 @@ export enum OrderByName {
 }
 
 export type TypeMenuList = {
-    menuName: MenuItem.HOME | MenuItem.TRENDING | MenuItem.BROWSE_MOVIES | MenuItem.FAVORITES;
-    menuLink:
-        | MenuLink.HOME_LINK
-        | MenuLink.TRENDING_LINK
-        | MenuLink.BROWSE_MOVIES
-        | MenuLink.FAVORITES_LINK;
+    menuName: MenuItem.HOME | MenuItem.BROWSE_MOVIES | MenuItem.FAVORITES;
+    menuLink: MenuLink.HOME_LINK | MenuLink.BROWSE_MOVIES | MenuLink.FAVORITES_LINK;
 };
 
 export type TypeQuality = {
@@ -378,7 +372,7 @@ export type torrents = {
     seeds: number;
     size: string;
     type: string;
-    peers: string
+    peers: string;
 };
 
 export interface IMovie {
@@ -392,4 +386,7 @@ export interface IMovie {
     genres: TypeGenre[];
     torrents: torrents[];
     like_count: number;
+    description_full: string;
+    date_uploaded: string;
+    mpa_rating: string;
 }

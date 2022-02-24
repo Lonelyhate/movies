@@ -1,0 +1,10 @@
+.movies-list{
+    display: flex;
+    flex-wrap: wrap;
+    &__item{
+        &:not(:nth-child(5n)) {
+            margin-right: 59px;
+        }
+        margin-bottom: 20px;
+    }
+}

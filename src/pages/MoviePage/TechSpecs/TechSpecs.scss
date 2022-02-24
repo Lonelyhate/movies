@@ -1,0 +1,40 @@
+@import '../../../styles/variables.scss';
+
+.tech-specs{
+    margin-top: 55px;
+    padding-bottom: 50px;
+    &__header{
+        display: flex;
+        align-items: center;
+    }
+    &__title{
+        padding: 0 0 0 15px;
+        color: $color-white;
+        font-size: 18.4px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    &__btns{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    &__btn{
+        background-color: transparent;
+        cursor: pointer;
+        color: $color-gray;
+        padding: 10px 30px;
+        font-size: 13.3px;
+        transition: color 0.3s ease;
+        border: none;
+        &:hover{
+            color: $color-white;
+        }
+        &.active{
+            background-color: $color-background-dark;
+            font-weight: 700;
+            color: $color-white;
+            border-radius: 4px 4px 0 0;
+        }
+    }
+}

@@ -4,7 +4,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import './BrowseMovies.scss';
 import SearchTerm from './components/SearchTerm/SearchTerm';
 import { fetchMovies } from '../../redux/actions/movies'
-import MoviesList from './components/MoviesList/MoviesList';
+import MoviesListBrowse from './components/MoviesList/BrowseMoviesList';
 
 const BrowseMovies: FC = () => {
 
@@ -20,7 +20,7 @@ const BrowseMovies: FC = () => {
     return (
         <div className="browse-movies">
                 <SearchTerm />
-                <MoviesList pages={pages} totalItems={totalItems} movies={items} />
+                <MoviesListBrowse pages={pages} totalItems={totalItems} movies={items} />
         </div>
     );
 };

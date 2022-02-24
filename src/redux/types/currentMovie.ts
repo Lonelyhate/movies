@@ -2,6 +2,7 @@ import { IMovie } from '../../types/types';
 
 export interface CurrentMovieState {
     movie: IMovie | null;
+    similarMovies: IMovie[]
     loading: boolean;
     error: string | null;
 }
@@ -9,6 +10,7 @@ export interface CurrentMovieState {
 export enum CurrentMovieActionTypes {
     FETCH_MOVIE = 'FETCH_MOVIE',
     FETCH_MOVIE_SUCCES = 'FETCH_MOVIE_SUCCES',
+    FETCH_MOVIE_SIMILAR = 'FETCH_MOVIE_SIMILAR',
     FETCH_MOVIE_ERROR = 'FETCH_MOVIE_ERROR',
 }
 
@@ -21,6 +23,11 @@ interface FetchCurrentMovieSuccessAction {
     payload: IMovie;
 }
 
+interface FetchCurrentMoviesSimilarAction {
+    type: CurrentMovieActionTypes.FETCH_MOVIE_SIMILAR,
+    payload: IMovie[]
+}
+
 interface FetchCurrentMovieErrorAction {
     type: CurrentMovieActionTypes.FETCH_MOVIE_ERROR;
     payload: string;
@@ -29,4 +36,5 @@ interface FetchCurrentMovieErrorAction {
 export type CurrentMovieAction =
     | FetchCurrentMovieAction
     | FetchCurrentMovieSuccessAction
+    | FetchCurrentMoviesSimilarAction
     | FetchCurrentMovieErrorAction;

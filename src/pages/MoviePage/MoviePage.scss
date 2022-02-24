@@ -4,7 +4,14 @@
     background-color: #1d1d1d;
     padding-top: 50px;
     &__content{
+        
+    }
+    &__loading{
+        height: 100vh;
+    }
+    &__top{
         display: flex;
+        margin-bottom: 55px;
     }
     &__left{
         margin-right: 70px;
@@ -23,14 +30,21 @@
             width: 100%;
             height: 100%;
         }
+    }
+    &__bookmark{
+        position: absolute;
+        top: 0;
+        left: 0px;
         svg{
-            position: absolute;
-            top: 0;
-            left: 3px;
             width: 35px;
             height: 35px;
             stroke: $colorg-reen;
             cursor: pointer;
+        }
+        &.active{
+            svg{
+                fill: $colorg-reen;
+            }
         }
     }
     &__download{
@@ -46,6 +60,10 @@
         text-decoration: none;
         font-weight: 700;
         font-size: 17.6px;
+        transition: background-color 0.3s ease;
+        &:hover{
+            background-color: darken(#6AC045, 10%);
+        }
     }
     &__title{
         font-size: 40px;
@@ -60,11 +78,15 @@
     &__genres{
         margin: 5px 0 30px;
         display: flex;
+        flex-wrap: wrap;
     }
     &__genre{
         font-size: 20px;
         color: $color-white;
         font-weight: 700;
+        &:not(:last-child) {
+            margin-right: 4px;
+        }
     }
     &__availables{
         margin-bottom: 30px;
@@ -106,6 +128,11 @@
         display: flex;
         align-items: center;
         margin-bottom: 15px;
+        &:last-child {
+            svg{
+                margin-left: 10px;
+            }
+        }
         svg{
             width: 25px;
             height: 25px;
@@ -120,5 +147,18 @@
         img{
             margin-right: 30px;
         }
+    }
+    &__description{
+        max-width: 700px;
+        color: $color-gray;
+    }
+    &__descr-title{
+        color: $color-white;
+        font-size: 20px;
+    }
+    &__text{
+        line-height: 24px;
+        font-size: 16px;
+        margin: 24px 0;
     }
 }
