@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.favorites-page{
+    background-color: #1d1d1d;
+    height: 100vh;
+    padding: 40px 0;
+    &__title{
+        color: $color-white;
+        font-size: 18.4px;
+        margin-bottom: 25px;
+    }
+}

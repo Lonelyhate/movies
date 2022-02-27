@@ -367,10 +367,6 @@ const SearchTerm: FC = () => {
         setIsValue(e.target.value.split(' ').join('+'));
     };
 
-    const m = React.useMemo(() => {
-        console.log(1)
-    }, [genre])
-
     const onChangeValueQuality = (e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setQuality(e.target.value));
     };

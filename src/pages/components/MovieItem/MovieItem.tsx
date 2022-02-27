@@ -74,7 +74,7 @@ const MovieItem: FC<MovieItemProps> = ({ movie }) => {
                 onClick={() => {
                     onClickMovie(movie.id);
                 }}>
-                {movie.title.length > 19 ? movie.title.slice(0, 20) + ' ...' : movie.title}
+                {movie.title.length > 18 ? movie.title.slice(0, 19) + ' ...' : movie.title}
             </button>
             <span className="movie-item__year">{movie.year}</span>
         </article>
