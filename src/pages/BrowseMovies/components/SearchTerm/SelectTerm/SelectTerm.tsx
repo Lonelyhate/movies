@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import {
     TypeGenre,
     TypeLanguage,
@@ -19,7 +19,6 @@ interface SelectTermProps {
 }
 
 const SelectTerm: FC<SelectTermProps> = ({ items, title, name, onChangeValue }) => {
-
     return (
         <div className="select-term">
             <p className="select-term__title">{title}</p>

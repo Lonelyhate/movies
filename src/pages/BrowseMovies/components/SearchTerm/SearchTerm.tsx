@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { activePage, fetchMovies } from '../../../../redux/actions/movies';
@@ -35,307 +35,319 @@ import './SearchTerm.scss';
 import SelectTerm from './SelectTerm/SelectTerm';
 
 const SearchTerm: FC = () => {
-    const qualities: TypeQuality[] = [
-        {
-            value: QualityChangeValue.ALL,
-            name: QualityChangeName.ALL,
-        },
-        {
-            value: QualityChangeValue.FIRST,
-            name: QualityChangeName.FIRST,
-        },
-        {
-            value: QualityChangeValue.SECOND,
-            name: QualityChangeName.SECOND,
-        },
-        {
-            value: QualityChangeValue.THIRD,
-            name: QualityChangeName.THIRD,
-        },
-        {
-            value: QualityChangeValue.D,
-            name: QualityChangeName.D,
-        },
-    ];
+    const qualities = useMemo((): TypeQuality[] => {
+        return [
+            {
+                value: QualityChangeValue.ALL,
+                name: QualityChangeName.ALL,
+            },
+            {
+                value: QualityChangeValue.FIRST,
+                name: QualityChangeName.FIRST,
+            },
+            {
+                value: QualityChangeValue.SECOND,
+                name: QualityChangeName.SECOND,
+            },
+            {
+                value: QualityChangeValue.THIRD,
+                name: QualityChangeName.THIRD,
+            },
+            {
+                value: QualityChangeValue.D,
+                name: QualityChangeName.D,
+            },
+        ];
+    }, []);
 
-    const genres: TypeGenre[] = [
-        {
-            value: GenreChangeValue.ALL,
-            name: GenreChangeName.ALL,
-        },
-        {
-            value: GenreChangeValue.ACTION,
-            name: GenreChangeName.ACTION,
-        },
-        {
-            value: GenreChangeValue.ADVENTURE,
-            name: GenreChangeName.ADVENTURE,
-        },
-        {
-            value: GenreChangeValue.ANIMATION,
-            name: GenreChangeName.ANIMATION,
-        },
-        {
-            value: GenreChangeValue.BIOGRAPHY,
-            name: GenreChangeName.BIOGRAPHY,
-        },
-        {
-            value: GenreChangeValue.COMEDY,
-            name: GenreChangeName.COMEDY,
-        },
-        {
-            value: GenreChangeValue.CRIME,
-            name: GenreChangeName.CRIME,
-        },
-        {
-            value: GenreChangeValue.DOCUMENTARY,
-            name: GenreChangeName.DOCUMENTARY,
-        },
-        {
-            value: GenreChangeValue.DRAMA,
-            name: GenreChangeName.DRAMA,
-        },
-        {
-            value: GenreChangeValue.FAMILY,
-            name: GenreChangeName.FAMILY,
-        },
-        {
-            value: GenreChangeValue.FANTASY,
-            name: GenreChangeName.FANTASY,
-        },
-        {
-            value: GenreChangeValue.FILM_NOIR,
-            name: GenreChangeName.FILM_NOIR,
-        },
-        {
-            value: GenreChangeValue.GAME_SHOW,
-            name: GenreChangeName.GAME_SHOW,
-        },
-        {
-            value: GenreChangeValue.HISTORY,
-            name: GenreChangeName.HISTORY,
-        },
-        {
-            value: GenreChangeValue.HORROR,
-            name: GenreChangeName.HORROR,
-        },
-        {
-            value: GenreChangeValue.MUSIC,
-            name: GenreChangeName.MUSIC,
-        },
-        {
-            value: GenreChangeValue.MUSICAL,
-            name: GenreChangeName.MUSICAL,
-        },
-        {
-            value: GenreChangeValue.MYSTERY,
-            name: GenreChangeName.MYSTERY,
-        },
-        {
-            value: GenreChangeValue.NEWS,
-            name: GenreChangeName.NEWS,
-        },
-        {
-            value: GenreChangeValue.REALITY_TV,
-            name: GenreChangeName.REALITY_TV,
-        },
-        {
-            value: GenreChangeValue.ROMANCE,
-            name: GenreChangeName.ROMANCE,
-        },
-        {
-            value: GenreChangeValue.SCI_FI,
-            name: GenreChangeName.SCI_FI,
-        },
-        {
-            value: GenreChangeValue.SPORT,
-            name: GenreChangeName.SPORT,
-        },
-        {
-            value: GenreChangeValue.TALK_SHOW,
-            name: GenreChangeName.TALK_SHOW,
-        },
-        {
-            value: GenreChangeValue.THRILLER,
-            name: GenreChangeName.THRILLER,
-        },
-        {
-            value: GenreChangeValue.WAR,
-            name: GenreChangeName.WAR,
-        },
-        {
-            value: GenreChangeValue.WESTERN,
-            name: GenreChangeName.WESTERN,
-        },
-    ];
+    const genres = useMemo((): TypeGenre[] => {
+        return [
+            {
+                value: GenreChangeValue.ALL,
+                name: GenreChangeName.ALL,
+            },
+            {
+                value: GenreChangeValue.ACTION,
+                name: GenreChangeName.ACTION,
+            },
+            {
+                value: GenreChangeValue.ADVENTURE,
+                name: GenreChangeName.ADVENTURE,
+            },
+            {
+                value: GenreChangeValue.ANIMATION,
+                name: GenreChangeName.ANIMATION,
+            },
+            {
+                value: GenreChangeValue.BIOGRAPHY,
+                name: GenreChangeName.BIOGRAPHY,
+            },
+            {
+                value: GenreChangeValue.COMEDY,
+                name: GenreChangeName.COMEDY,
+            },
+            {
+                value: GenreChangeValue.CRIME,
+                name: GenreChangeName.CRIME,
+            },
+            {
+                value: GenreChangeValue.DOCUMENTARY,
+                name: GenreChangeName.DOCUMENTARY,
+            },
+            {
+                value: GenreChangeValue.DRAMA,
+                name: GenreChangeName.DRAMA,
+            },
+            {
+                value: GenreChangeValue.FAMILY,
+                name: GenreChangeName.FAMILY,
+            },
+            {
+                value: GenreChangeValue.FANTASY,
+                name: GenreChangeName.FANTASY,
+            },
+            {
+                value: GenreChangeValue.FILM_NOIR,
+                name: GenreChangeName.FILM_NOIR,
+            },
+            {
+                value: GenreChangeValue.GAME_SHOW,
+                name: GenreChangeName.GAME_SHOW,
+            },
+            {
+                value: GenreChangeValue.HISTORY,
+                name: GenreChangeName.HISTORY,
+            },
+            {
+                value: GenreChangeValue.HORROR,
+                name: GenreChangeName.HORROR,
+            },
+            {
+                value: GenreChangeValue.MUSIC,
+                name: GenreChangeName.MUSIC,
+            },
+            {
+                value: GenreChangeValue.MUSICAL,
+                name: GenreChangeName.MUSICAL,
+            },
+            {
+                value: GenreChangeValue.MYSTERY,
+                name: GenreChangeName.MYSTERY,
+            },
+            {
+                value: GenreChangeValue.NEWS,
+                name: GenreChangeName.NEWS,
+            },
+            {
+                value: GenreChangeValue.REALITY_TV,
+                name: GenreChangeName.REALITY_TV,
+            },
+            {
+                value: GenreChangeValue.ROMANCE,
+                name: GenreChangeName.ROMANCE,
+            },
+            {
+                value: GenreChangeValue.SCI_FI,
+                name: GenreChangeName.SCI_FI,
+            },
+            {
+                value: GenreChangeValue.SPORT,
+                name: GenreChangeName.SPORT,
+            },
+            {
+                value: GenreChangeValue.TALK_SHOW,
+                name: GenreChangeName.TALK_SHOW,
+            },
+            {
+                value: GenreChangeValue.THRILLER,
+                name: GenreChangeName.THRILLER,
+            },
+            {
+                value: GenreChangeValue.WAR,
+                name: GenreChangeName.WAR,
+            },
+            {
+                value: GenreChangeValue.WESTERN,
+                name: GenreChangeName.WESTERN,
+            },
+        ];
+    }, []);
 
-    const ratings: TypeRating[] = [
-        {
-            value: RatingChangeValue.ALL,
-            name: RatingChangeName.ALL,
-        },
-        {
-            value: RatingChangeValue.NINE,
-            name: RatingChangeName.NINE,
-        },
-        {
-            value: RatingChangeValue.EIGHT,
-            name: RatingChangeName.EIGHT,
-        },
-        {
-            value: RatingChangeValue.SEVEN,
-            name: RatingChangeName.SEVEN,
-        },
-        {
-            value: RatingChangeValue.SIX,
-            name: RatingChangeName.SIX,
-        },
-        {
-            value: RatingChangeValue.FIVE,
-            name: RatingChangeName.FIVE,
-        },
-        {
-            value: RatingChangeValue.FOUR,
-            name: RatingChangeName.FOUR,
-        },
-        {
-            value: RatingChangeValue.THREE,
-            name: RatingChangeName.THREE,
-        },
-        {
-            value: RatingChangeValue.TWO,
-            name: RatingChangeName.TWO,
-        },
-        {
-            value: RatingChangeValue.ONE,
-            name: RatingChangeName.ONE,
-        },
-    ];
+    const ratings = useMemo((): TypeRating[] => {
+        return [
+            {
+                value: RatingChangeValue.ALL,
+                name: RatingChangeName.ALL,
+            },
+            {
+                value: RatingChangeValue.NINE,
+                name: RatingChangeName.NINE,
+            },
+            {
+                value: RatingChangeValue.EIGHT,
+                name: RatingChangeName.EIGHT,
+            },
+            {
+                value: RatingChangeValue.SEVEN,
+                name: RatingChangeName.SEVEN,
+            },
+            {
+                value: RatingChangeValue.SIX,
+                name: RatingChangeName.SIX,
+            },
+            {
+                value: RatingChangeValue.FIVE,
+                name: RatingChangeName.FIVE,
+            },
+            {
+                value: RatingChangeValue.FOUR,
+                name: RatingChangeName.FOUR,
+            },
+            {
+                value: RatingChangeValue.THREE,
+                name: RatingChangeName.THREE,
+            },
+            {
+                value: RatingChangeValue.TWO,
+                name: RatingChangeName.TWO,
+            },
+            {
+                value: RatingChangeValue.ONE,
+                name: RatingChangeName.ONE,
+            },
+        ];
+    }, []);
 
-    const years: TypeYear[] = [
-        {
-            value: YearChangeValue.ALL,
-            name: YearChangeName.ALL,
-        },
-        {
-            value: YearChangeValue.TWENTY_TWO,
-            name: YearChangeName.TWENTY_TWO,
-        },
-        {
-            value: YearChangeValue.TWENTY_ONE,
-            name: YearChangeName.TWENTY_ONE,
-        },
-        {
-            value: YearChangeValue.TWENTY,
-            name: YearChangeName.TWENTY,
-        },
-        {
-            value: YearChangeValue.NINETEEN,
-            name: YearChangeName.NINETEEN,
-        },
-        {
-            value: YearChangeValue.FIVETEEN_EIGHTEEN,
-            name: YearChangeName.FIVETEEN_EIGHTEEN,
-        },
-        {
-            value: YearChangeValue.TEN_FOURTEEN,
-            name: YearChangeName.TEN_FOURTEEN,
-        },
-        {
-            value: YearChangeValue.TWO_NINE,
-            name: YearChangeName.TWO_NINE,
-        },
-        {
-            value: YearChangeValue.NINETY_NINETY_NINE,
-            name: YearChangeName.NINETY_NINETY_NINE,
-        },
-        {
-            value: YearChangeValue.EIGHTY_EGHTY_NINE,
-            name: YearChangeName.EIGHTY_EGHTY_NINE,
-        },
-        {
-            value: YearChangeValue.SEVENTY_SEVENTY_NINE,
-            name: YearChangeName.SEVENTY_SEVENTY_NINE,
-        },
-        {
-            value: YearChangeValue.FIVTY_SIXTY_NINE,
-            name: YearChangeName.FIVTY_SIXTY_NINE,
-        },
-        {
-            value: YearChangeValue.OLD_YEAR,
-            name: YearChangeName.OLD_YEAR,
-        },
-    ];
+    const years = useMemo((): TypeYear[] => {
+        return [
+            {
+                value: YearChangeValue.ALL,
+                name: YearChangeName.ALL,
+            },
+            {
+                value: YearChangeValue.TWENTY_TWO,
+                name: YearChangeName.TWENTY_TWO,
+            },
+            {
+                value: YearChangeValue.TWENTY_ONE,
+                name: YearChangeName.TWENTY_ONE,
+            },
+            {
+                value: YearChangeValue.TWENTY,
+                name: YearChangeName.TWENTY,
+            },
+            {
+                value: YearChangeValue.NINETEEN,
+                name: YearChangeName.NINETEEN,
+            },
+            {
+                value: YearChangeValue.FIVETEEN_EIGHTEEN,
+                name: YearChangeName.FIVETEEN_EIGHTEEN,
+            },
+            {
+                value: YearChangeValue.TEN_FOURTEEN,
+                name: YearChangeName.TEN_FOURTEEN,
+            },
+            {
+                value: YearChangeValue.TWO_NINE,
+                name: YearChangeName.TWO_NINE,
+            },
+            {
+                value: YearChangeValue.NINETY_NINETY_NINE,
+                name: YearChangeName.NINETY_NINETY_NINE,
+            },
+            {
+                value: YearChangeValue.EIGHTY_EGHTY_NINE,
+                name: YearChangeName.EIGHTY_EGHTY_NINE,
+            },
+            {
+                value: YearChangeValue.SEVENTY_SEVENTY_NINE,
+                name: YearChangeName.SEVENTY_SEVENTY_NINE,
+            },
+            {
+                value: YearChangeValue.FIVTY_SIXTY_NINE,
+                name: YearChangeName.FIVTY_SIXTY_NINE,
+            },
+            {
+                value: YearChangeValue.OLD_YEAR,
+                name: YearChangeName.OLD_YEAR,
+            },
+        ];
+    }, []);
 
-    const languages: TypeLanguage[] = [
-        {
-            value: LanguageChangeValue.ALL,
-            name: LanguageChangeName.ALL,
-        },
-        {
-            value: LanguageChangeValue.ENGLISH,
-            name: LanguageChangeName.ENGLISH,
-        },
-        {
-            value: LanguageChangeValue.RUSSIAN,
-            name: LanguageChangeName.RUSSIAN,
-        },
-        {
-            value: LanguageChangeValue.FRENCH,
-            name: LanguageChangeName.FRENCH,
-        },
-        {
-            value: LanguageChangeValue.ITALIAN,
-            name: LanguageChangeName.ITALIAN,
-        },
-        {
-            value: LanguageChangeValue.SPANISH,
-            name: LanguageChangeName.SPANISH,
-        },
-    ];
+    const languages = useMemo((): TypeLanguage[] => {
+        return [
+            {
+                value: LanguageChangeValue.ALL,
+                name: LanguageChangeName.ALL,
+            },
+            {
+                value: LanguageChangeValue.ENGLISH,
+                name: LanguageChangeName.ENGLISH,
+            },
+            {
+                value: LanguageChangeValue.RUSSIAN,
+                name: LanguageChangeName.RUSSIAN,
+            },
+            {
+                value: LanguageChangeValue.FRENCH,
+                name: LanguageChangeName.FRENCH,
+            },
+            {
+                value: LanguageChangeValue.ITALIAN,
+                name: LanguageChangeName.ITALIAN,
+            },
+            {
+                value: LanguageChangeValue.SPANISH,
+                name: LanguageChangeName.SPANISH,
+            },
+        ];
+    }, []);
 
-    const ordersBy: TypeOrderBy[] = [
-        {
-            value: OrderByValue.LATEST,
-            name: OrderByName.LATEST,
-        },
-        {
-            value: OrderByValue.OLDEST,
-            name: OrderByName.OLDEST,
-        },
-        {
-            value: OrderByValue.FEATURED,
-            name: OrderByName.FEATURED,
-        },
-        {
-            value: OrderByValue.SEEDS,
-            name: OrderByName.SEEDS,
-        },
-        {
-            value: OrderByValue.PEERS,
-            name: OrderByName.PEERS,
-        },
-        {
-            value: OrderByValue.YEAR,
-            name: OrderByName.YEAR,
-        },
-        {
-            value: OrderByValue.RATING,
-            name: OrderByName.RATING,
-        },
-        {
-            value: OrderByValue.LIKES,
-            name: OrderByName.LIKES,
-        },
-        {
-            value: OrderByValue.ALPHABETICAL,
-            name: OrderByName.ALPHABETICAL,
-        },
-        {
-            value: OrderByValue.DOWNLOADS,
-            name: OrderByName.DOWNLOADS,
-        },
-    ];
+    const ordersBy = useMemo((): TypeOrderBy[] => {
+        return [
+            {
+                value: OrderByValue.LATEST,
+                name: OrderByName.LATEST,
+            },
+            {
+                value: OrderByValue.OLDEST,
+                name: OrderByName.OLDEST,
+            },
+            {
+                value: OrderByValue.FEATURED,
+                name: OrderByName.FEATURED,
+            },
+            {
+                value: OrderByValue.SEEDS,
+                name: OrderByName.SEEDS,
+            },
+            {
+                value: OrderByValue.PEERS,
+                name: OrderByName.PEERS,
+            },
+            {
+                value: OrderByValue.YEAR,
+                name: OrderByName.YEAR,
+            },
+            {
+                value: OrderByValue.RATING,
+                name: OrderByName.RATING,
+            },
+            {
+                value: OrderByValue.LIKES,
+                name: OrderByName.LIKES,
+            },
+            {
+                value: OrderByValue.ALPHABETICAL,
+                name: OrderByName.ALPHABETICAL,
+            },
+            {
+                value: OrderByValue.DOWNLOADS,
+                name: OrderByName.DOWNLOADS,
+            },
+        ];
+    }, []);
 
     const dispatch = useDispatch();
     const { quality, genre, rating, year, language, orderBy, value } = useTypedSelector(
@@ -352,44 +364,46 @@ const SearchTerm: FC = () => {
         year: string,
         language: string,
         order_by: string,
-        page: number
+        page: number,
     ) => {
-        dispatch(setValue(isValue))
+        dispatch(setValue(isValue));
         dispatch(fetchMovies(page, value, quality, genre, rating, year, language, orderBy));
         dispatch(activePage(1));
     };
 
-    useEffect(() => {
-
-    }, [genre])
-
-    const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setIsValue(e.target.value.split(' ').join('+'));
-    };
+    }, [value]);
 
-    const onChangeValueQuality = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        dispatch(setQuality(e.target.value));
-    };
+    const onChangeValueQuality = useCallback(
+        (e: React.ChangeEvent<HTMLSelectElement>) => {
+            dispatch(setQuality(e.target.value));
+        },
+        [quality],
+    );
 
-    const onChangeValueGenre = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        dispatch(setGenre(e.target.value));
-    };
+    const onChangeValueGenre = useCallback(
+        (e: React.ChangeEvent<HTMLSelectElement>) => {
+            dispatch(setGenre(e.target.value));
+        },
+        [genre],
+    );
 
-    const onChangeValueRating = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const onChangeValueRating = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setRating(e.target.value));
-    };
+    }, [rating]);
 
-    const onChangeValueYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const onChangeValueYear = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setYear(e.target.value));
-    };
+    }, [year]);
 
-    const onChangeValueLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const onChangeValueLanguage = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setLanguage(e.target.value));
-    };
+    }, [language]);
 
-    const onChangeValueSortBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const onChangeValueSortBy = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(setOrderBy(e.target.value));
-    };
+    }, [orderBy]);
 
     return (
         <div className="search-term">
@@ -400,13 +414,32 @@ const SearchTerm: FC = () => {
                         onChange={onChangeValue}
                         onKeyPress={(e) =>
                             e.key === 'Enter' &&
-                            getMovies(isValue, quality, genre, rating, year, language, orderBy, page)
+                            getMovies(
+                                isValue,
+                                quality,
+                                genre,
+                                rating,
+                                year,
+                                language,
+                                orderBy,
+                                page,
+                            )
                         }
                         type="text"
+                        value={isValue}
                     />
                     <button
                         onClick={() => {
-                            getMovies(isValue, quality, genre, rating, year, language, orderBy, page);
+                            getMovies(
+                                isValue,
+                                quality,
+                                genre,
+                                rating,
+                                year,
+                                language,
+                                orderBy,
+                                page,
+                            );
                         }}
                         className="search-term__btn">
                         Search

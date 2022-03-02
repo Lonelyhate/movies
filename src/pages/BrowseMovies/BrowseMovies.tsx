@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import './BrowseMovies.scss';
@@ -17,10 +17,12 @@ const BrowseMovies: FC = () => {
         dispatch(fetchMovies(page, value, quality, genre, rating, year, language, orderBy))
     }, [page])
 
+    const movies = useMemo(() => items, [items])
+
     return (
         <div className="browse-movies">
                 <SearchTerm />
-                <MoviesListBrowse pages={pages} totalItems={totalItems} movies={items} />
+                <MoviesListBrowse pages={pages} totalItems={totalItems} movies={movies} />
         </div>
     );
 };

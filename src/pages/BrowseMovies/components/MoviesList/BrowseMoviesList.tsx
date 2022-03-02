@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { activePage, fetchMovies } from '../../../../redux/actions/movies';
@@ -16,32 +16,40 @@ interface MoviesListProps {
 
 const BrowseMoviesList: FC<MoviesListProps> = ({ totalItems, pages, movies }) => {
     const dispatch = useDispatch();
-    const { page, loading } = useTypedSelector((state) => state.movies);
+    const { page, loading, items } = useTypedSelector((state) => state.movies);
     const { value, quality, genre, rating, year, language, orderBy } = useTypedSelector(
         (state) => state.search,
     );
 
-    const pagination: any[] = [];
-
-    for (let i = 0; pages < 8 ? i < pages : i < pages; i++) {
-        if (page < 8) {
-            if (i < 8) {
-                pagination.push(i + 1);
+    const createPagination = () => {
+        const paginationArray: any[] = [];
+        for (let i = 0; pages < 8 ? i < pages : i < pages; i++) {
+            if (page < 8) {
+                if (i < 8) {
+                    paginationArray.push(i + 1);
+                }
+                continue;
+            } else if (page > 7) {
+                if (i > page - 5 && i < page + 3) {
+                    paginationArray.push(i + 1);
+                }
+                continue;
             }
-            continue;
-        } else if (page > 7) {
-            if (i > page - 5 && i < page + 3) {
-                pagination.push(i + 1);
-            }
-            continue;
+            break;
         }
-        break;
-    }
-
-    const onClickPage = (page: string | number) => {
-        dispatch(activePage(page));
-        dispatch(fetchMovies(+page, value, quality, genre, rating, year, language, orderBy));
+        return paginationArray;
     };
+
+
+    const pagination = useMemo(() => createPagination(), [items])
+
+    const onClickPage = useCallback(
+        (page: string | number) => {
+            dispatch(activePage(page));
+            dispatch(fetchMovies(+page, value, quality, genre, rating, year, language, orderBy));
+        },
+        [page],
+    );
 
     return (
         <section className="browse-movies-list__content">

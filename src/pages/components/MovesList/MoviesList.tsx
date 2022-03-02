@@ -20,4 +20,4 @@ const MoviesList: FC<MoviesListProps> = ({ movies }) => {
     );
 };
 
-export default MoviesList;
+export default React.memo(MoviesList);
